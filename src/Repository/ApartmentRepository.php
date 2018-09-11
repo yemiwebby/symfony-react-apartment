@@ -21,10 +21,10 @@ class ApartmentRepository extends ServiceEntityRepository
 
     public function fetch(Apartment $apartment) {
         return [
-            'id' => $apartment->getId(),
-            'title' => $apartment->getTitle(),
-            'description' => $apartment->getDescription(),
-            'likeCount' => $apartment->getLikeCount()
+            'id' => (int) $apartment->getId(),
+            'title' =>  (string) $apartment->getTitle(),
+            'description' => (string) $apartment->getDescription(),
+            'likeCount' =>  (int) $apartment->getLikeCount()
         ];
     }
 

@@ -49,7 +49,25 @@ class ApartmentController extends AbstractController
         $apartment->setTitle($request->get('title'));
         $apartment->setLikeCount(0);
         $apartment->setDescription($request->get('description'));
-//        $apartment->setImageUrl($this->imageUploader->uploadImageToCloudinary($request->get('image')));
+        //        $apartment->setImageUrl($this->imageUploader->uploadImageToCloudinary($request->get('image')));
+        $this->updateDatabase($apartment);
+
+        return new JsonResponse($this->apartmentRepository->fetch($apartment));
+    }
+
+    /**
+     * @Route("/movies/{id}/count", methods="POST")
+     */
+    public function increaseLikeCount($id)
+    {
+        $apartment = $this->apartmentRepository->find($id);
+        if (! $apartment) {
+            return new JsonResponse("Not found!", 404);
+        }
+        $apartment->setLikeCount($apartment->getLikeCount() + 1);
+        $this->updateDatabase($apartment);
+
+        return $this->response($apartment->getLikeCount());
     }
 
 
@@ -79,5 +97,11 @@ class ApartmentController extends AbstractController
         $request->request->replace($data);
 
         return $request;
+    }
+
+
+    function updateDatabase($object) {
+        $this->entityManager->persist($object);
+        $this->entityManager->flush();
     }
 }
