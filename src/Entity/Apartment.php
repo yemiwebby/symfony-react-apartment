@@ -31,6 +31,11 @@ class Apartment
      */
     private $likeCount;
 
+    /**
+     * @ORM\Column(name="image_url", type="string", length=255, nullable=true)
+     */
+    private $imageUrl;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,4 +76,22 @@ class Apartment
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
+    }
+
+    /**
+     * @param mixed $imageUrl
+     */
+    public function setImageUrl($imageUrl): void
+    {
+        $this->imageUrl = $imageUrl;
+    }
+
+
 }
