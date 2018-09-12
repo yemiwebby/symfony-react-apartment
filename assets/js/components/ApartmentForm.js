@@ -10,6 +10,7 @@ class ApartmentForm extends Component {
             title:"",
             description:'',
             image: '',
+            price: '',
             errorMessage:'',
             error: false,
             isLoading: false

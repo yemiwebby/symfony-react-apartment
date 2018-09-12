@@ -49,6 +49,7 @@ class ApartmentController extends AbstractController
         $apartment->setTitle($request->get('title'));
         $apartment->setLikeCount(0);
         $apartment->setDescription($request->get('description'));
+        $apartment->setPrice($request->get('price'));
         //        $apartment->setImageUrl($this->imageUploader->uploadImageToCloudinary($request->get('image')));
         $this->updateDatabase($apartment);
 

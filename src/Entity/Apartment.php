@@ -17,19 +17,24 @@ class Apartment
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="title" type="string", length=255)
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="description" type="string", length=255)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(name="like_count" type="integer", nullable=true)
      */
     private $likeCount;
+
+    /**
+     * @ORM\Column(name="price", type="string", length=255, nullable=true)
+     */
+    private $price;
 
     /**
      * @ORM\Column(name="image_url", type="string", length=255, nullable=true)
@@ -76,6 +81,23 @@ class Apartment
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param mixed $price
+     */
+    public function setPrice($price): void
+    {
+        $this->price = $price;
+    }
+
 
     /**
      * @return mixed
