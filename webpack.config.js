@@ -44,6 +44,7 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
+    // .createSharedEntry('app', ['babel-polyfill'])
 ;
 
 module.exports = Encore.getWebpackConfig();

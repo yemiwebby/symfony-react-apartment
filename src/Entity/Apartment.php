@@ -17,17 +17,17 @@ class Apartment
     private $id;
 
     /**
-     * @ORM\Column(name="title" type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
     /**
-     * @ORM\Column(name="description" type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
-     * @ORM\Column(name="like_count" type="integer", nullable=true)
+     * @ORM\Column(name="like_count", type="integer", nullable=true)
      */
     private $likeCount;
 

@@ -24,17 +24,29 @@ class ApartmentController extends AbstractController
         $this->imageUploader = $imageUploader;
     }
 
+//    /**
+//     * @Route("/apartments", name="apartments", method="GET")
+//     */
+
     /**
-     * @Route("/apartments", name="apartments" method="GET")
+     * @Route("/", name="default")
      */
     public function index()
+    {
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'ApartmentController',
+        ]);
+    }
+
+    /**
+     * @Route("/apartments", name="apartments", methods="GET")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function apartments()
     {
         $apartments = $this->apartmentRepository->findAllApartment();
 
         return $this->response($apartments);
-//        return $this->render('apartment/index.html.twig', [
-//            'controller_name' => 'ApartmentController',
-//        ]);
     }
 
     public function createApartment(Request $request)
@@ -57,7 +69,7 @@ class ApartmentController extends AbstractController
     }
 
     /**
-     * @Route("/movies/{id}/count", methods="POST")
+     * @Route("/apartments/{id}/count", methods="POST")
      */
     public function increaseLikeCount($id)
     {
@@ -73,6 +85,7 @@ class ApartmentController extends AbstractController
 
 
     function response($data) {
+
         return new JsonResponse($data, $this->statusCode);
     }
 
