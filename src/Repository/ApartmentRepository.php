@@ -19,22 +19,23 @@ class ApartmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Apartment::class);
     }
 
-    public function fetch(Apartment $apartment) {
+    public function modify(Apartment $apartment) {
         return [
             'id' => (int) $apartment->getId(),
             'title' =>  (string) $apartment->getTitle(),
             'description' => (string) $apartment->getDescription(),
-            'likeCount' =>  (int) $apartment->getLikeCount()
+            'likeCount' =>  (int) $apartment->getLikeCount(),
+            'image'
         ];
     }
 
-    public function findAllApartment()
+    public function modifyAllApartment()
     {
         $apartments  = $this->findAll();
         $apartmentsArray = [];
 
         foreach ($apartments as $apartment) {
-            $apartmentsArray [] = $this->fetch($apartment);
+            $apartmentsArray [] = $this->modify($apartment);
         }
 
         return $apartmentsArray;

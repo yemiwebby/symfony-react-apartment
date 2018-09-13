@@ -55,7 +55,7 @@ class Apartments extends Component {
         return (
             <div>
                 {this.state.isLoading &&  <Alert color="primary">
-                    This is a primary alert — check it out!
+                    Loading ....
                 </Alert>}
                 {this.state.apartments &&
                 <div>
