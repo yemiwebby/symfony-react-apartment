@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Container } from 'reactstrap';
-
-import "babel-preset-react";
 import Items from './components/Items';
 import Navbar from './components/Navbar';
 import Home from './components/Home';

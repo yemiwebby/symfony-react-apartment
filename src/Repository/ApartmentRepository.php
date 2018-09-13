@@ -25,7 +25,8 @@ class ApartmentRepository extends ServiceEntityRepository
             'title' =>  (string) $apartment->getTitle(),
             'description' => (string) $apartment->getDescription(),
             'likeCount' =>  (int) $apartment->getLikeCount(),
-            'image'
+            'price' =>  (float) $apartment->getPrice(),
+            'image' => (string) $apartment->getImageUrl()
         ];
     }
 

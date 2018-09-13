@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText, Alert } from 'reactstrap';
-import { BASE_URL } from "./util";
+import { APP } from "./util";
 import axios from 'axios';
 
 
@@ -30,30 +30,22 @@ class ApartmentForm extends Component {
 
     submitForm(e) {
         e.preventDefault();
-        // this.setState({
-        //     isLoading: true,
-        //     error: false,
-        //     errorMessage: ''
-        // });
+        this.setState({
+            isLoading: true,
+            error: false,
+            errorMessage: ''
+        });
 
-        const data = new FormData(e.target);
-        // data.append("title", "oluyemi");
-        // formData.append("description", e.target.description.value);
-        // formData.append("price", e.target.price.value);
-        // formData.append("image", this.state.image, this.state.image.name);
-        // console.log(e.target.title.value);
-        // console.log(e.target.description.value);
-        // console.log(e.target.price.value);
-        // console.log(this.state.image);
-        const myObject = {
-            "title": e.target.title.value,
-            "description": e.target.description.value,
-            "price": e.target.price.value,
-            "image": this.state.image.name
-        }
-        console.log(myObject);
+        const body = new FormData(Form);
+        body.append("title", e.target.title.value);
+        body.append("description", e.target.description.value);
+        body.append("price", e.target.price.value);
+        body.append("image", this.state.image);
+        this._uploadToServer(body);
+    }
 
-        axios.post(`${BASE_URL}/apartments/create`, myObject)
+    _uploadToServer(body) {
+        axios.post(`${APP.BASE_URL}/${APP.CREATE_URL}`, body)
             .then(response => {
                 this.setState({
                     title: '',
@@ -69,31 +61,6 @@ class ApartmentForm extends Component {
                 errorMessage: err.errors
             });
         });
-
-
-
-
-        // const response = await fetch(BASE_URL + '/apartments', {
-        //     method: 'POST',
-        //     body: formData,
-        // });
-        // const data = await response.json();
-        //
-        // if (data.errors) {
-        //     this.setState({
-        //         isLoading: false,
-        //         error: true,
-        //         errorMessage: data.errors
-        //     });
-        // } else {
-        //     this.setState({
-        //         title: '',
-        //         isLoading: false,
-        //         error: false,
-        //         errorMessage: ''
-        //     });
-        //     this.props.addListing(data);
-        // }
     }
 
     render() {

@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React, { Component } from 'react';
 import { Form, Button } from 'reactstrap'
 
-import { BASE_URL } from './util'
+import { APP } from './util'
 
 class IncreaseLikeCount extends Component {
 
@@ -10,6 +10,7 @@ class IncreaseLikeCount extends Component {
         super(props);
         this.state = {
             id: props.apartmentId,
+            count: props.likeCount,
             isUpdating: false
         }
         this.onSubmit = this.onSubmit.bind(this);
@@ -22,7 +23,7 @@ class IncreaseLikeCount extends Component {
         });
 
         // const accessToken = await this.props.auth.getAccessToken();
-        const response = await fetch(BASE_URL + '/apartments/' + this.state.id + '/count', {
+        const response = await fetch(`${APP.BASE_URL}/${APP.APARTMENTS_URL}/${this.state.id}/count`, {
             method: 'POST',
         });
         const data = await response.json();
@@ -39,7 +40,7 @@ class IncreaseLikeCount extends Component {
     render() {
         return (
             <Form onSubmit={this.onSubmit}>
-                <Button type='submit' loading={this.state.isUpdating}> Like </Button>
+                <Button type='submit'> Like { this.state.count }</Button>
             </Form>
         )
     }

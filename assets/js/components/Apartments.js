@@ -1,8 +1,9 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
 import ApartmentForm from './ApartmentForm';
-import { Container, Table, Alert } from 'reactstrap';
-import { BASE_URL } from './util'
+import { Card, CardImg, CardText, CardBody,
+    CardTitle, CardSubtitle, Button, Alert,Row, Col, Badge  } from 'reactstrap';
+import { APP } from './util'
 import IncreaseLikeCount from './IncreaseLikeCount';
 
 
@@ -35,7 +36,7 @@ class Apartments extends Component {
         if (!this.state.apartments) {
             try {
                 this.setState({ isLoading: true });
-                const response = await fetch(BASE_URL + '/apartments');
+                const response = await fetch(`${APP.BASE_URL}/${APP.APARTMENTS_URL}`);
                 const data = await response.json();
                 this.setState({ apartments: data, isLoading: false});
             } catch (err) {
@@ -59,37 +60,29 @@ class Apartments extends Component {
                 </Alert>}
                 {this.state.apartments &&
                 <div>
-                    <Table>
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Like Count </th>
-                            <th> Image </th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                    <Row>
+                        <Col xs="3">
+                        <ApartmentForm addListing={this.addListing} />
+                        </Col>
+                        <Col xl="9">
+                            <Row>
                         {this.state.apartments.map(
                             apartment =>
-                                <tr id={apartment.id} key={apartment.id}>
-                                    <td>{apartment.id}</td>
-                                    <td>{apartment.title}</td>
-                                    <td>{apartment.description}</td>
-                                    <td>{apartment.price}</td>
-                                    <td>
-                                        <IncreaseLikeCount likeIncrease={this.likeIncrease()} apartmentId={apartment.id} />
-                                    </td>
-                                    <td>
-                                        <img src="" alt=""/>
-                                    </td>
-                                </tr>
+                                <Col xs="4" id={apartment.id} key={apartment.id}>
+                                    <Card>
+                                        <CardImg top width="100%" src="https://res.cloudinary.com/yemiwebby-com-ng/image/upload/v1536874395/symfony-listing/wtsivfmcgfs1yxrkap7o.jpg" alt="Card image cap" />
+                                        <CardBody>
+                                            <CardTitle>{apartment.title}</CardTitle>
+                                            <Badge color="info" pill>{apartment.price}</Badge>
+                                            <CardText>{apartment.description}</CardText>
+                                            <IncreaseLikeCount likeIncrease={this.likeIncrease} apartmentId={apartment.id} likeCount={apartment.likeCount}/>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
                         )}
-                        </tbody>
-                    </Table>
-
-                    <ApartmentForm addListing={this.addListing} />
+                            </Row>
+                        </Col>
+                    </Row>
                 </div>
                 }
             </div>

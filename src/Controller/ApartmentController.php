@@ -24,9 +24,6 @@ class ApartmentController extends AbstractController
         $this->imageUploader = $imageUploader;
     }
 
-//    /**
-//     * @Route("/apartments", name="apartments", method="GET")
-//     */
 
     /**
      * @Route("/", name="default")
@@ -54,22 +51,19 @@ class ApartmentController extends AbstractController
      */
     public function createApartment(Request $request)
     {
-        dd($request->getContent());
-        $request = $this->acceptJsonPayload($request);
+//        dd($request->getContent());
+//        $request = $this->acceptJsonPayload($request);
+//
+//        if (! $request) {
+//            return $this->responseWithError('Request not valid');
+//        }
 
-//        dd('HEre');
-
-        if (! $request) {
-            return $this->responseWithError('Request not valid');
-        }
-
-        dd($request->get('image'));
         $apartment = new Apartment;
         $apartment->setTitle($request->get('title'));
         $apartment->setLikeCount(0);
         $apartment->setDescription($request->get('description'));
         $apartment->setPrice($request->get('price'));
-        $apartment->setImageUrl($this->imageUploader->uploadImageToCloudinary($request->get('image')));
+        $apartment->setImageUrl($this->imageUploader->uploadImageToCloudinary($request->files->get('image')));
         $this->updateDatabase($apartment);
 
         return new JsonResponse($this->apartmentRepository->modify($apartment));
@@ -105,9 +99,7 @@ class ApartmentController extends AbstractController
 
     function acceptJsonPayload(Request $request)
     {
-//        dd($request->getContent());
         $data = json_decode($request->getContent(), true);
-
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             return null;
