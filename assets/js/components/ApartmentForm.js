@@ -53,7 +53,7 @@ class ApartmentForm extends Component {
                     error: false,
                     errorMessage: ''
                 });
-                this.props.addListing(response)
+                this.props.addListing(response.data)
             }).catch(err => {
             this.setState({
                 isLoading: false,
@@ -91,9 +91,8 @@ class ApartmentForm extends Component {
                     {this.state.errorMessage}
                 </Alert>
                 }
-                <Button type='submit' outline color="success">Add Apartment</Button>{' '}
+                <Button type='submit' outline color="success">Add Apartment</Button>
 
-                {/*<Button  loading={this.state.isLoading}>Add Apartment</Button>*/}
             </Form>
         )
     }

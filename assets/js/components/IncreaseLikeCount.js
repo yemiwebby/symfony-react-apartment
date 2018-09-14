@@ -1,8 +1,7 @@
-import 'babel-polyfill';
 import React, { Component } from 'react';
-import { Form, Button } from 'reactstrap'
-
+import { Form, Button,Badge } from 'reactstrap'
 import { APP } from './util'
+import axios from 'axios';
 
 class IncreaseLikeCount extends Component {
 
@@ -11,36 +10,25 @@ class IncreaseLikeCount extends Component {
         this.state = {
             id: props.apartmentId,
             count: props.likeCount,
-            isUpdating: false
-        }
+        };
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     async onSubmit(e) {
         e.preventDefault();
-        this.setState({
-            isUpdating: true
-        });
+        this.state.count++;
 
-        // const accessToken = await this.props.auth.getAccessToken();
-        const response = await fetch(`${APP.BASE_URL}/${APP.APARTMENTS_URL}/${this.state.id}/count`, {
-            method: 'POST',
+        axios.post(`${APP.BASE_URL}/${APP.APARTMENTS_URL}/${this.state.id}/count`).then(res => {
+            this.props.likeIncrease(res.data, this.state.id)
         });
-        const data = await response.json();
-
-        this.setState({
-            isUpdating: false
-        });
-
-        if (! data.errors) {
-            this.props.likeIncrease(data, this.state.id);
-        }
     }
 
     render() {
         return (
             <Form onSubmit={this.onSubmit}>
-                <Button type='submit'> Like { this.state.count }</Button>
+                <Button type='submit' color="primary" outline>
+                    Favorite <Badge color="secondary">{ this.state.count }</Badge>
+                </Button>
             </Form>
         )
     }
